@@ -27,11 +27,13 @@ Pas d’inquiétude : ton mot de passe est **chiffré localement**, et utilisé 
 ## 🏁 Ajouter une course
 
 Tu peux ensuite renseigner une course manuellement :  
-- Nom (libre, pour toi)
+- Nom (nom apparaissant dans les .csv générés par VrZen, ex: VRZEN_**ATLCONQUEROR**_20250512T130559Z.csv)
 - ID de la course (obligatoire)
 
 > 📌 **Où trouver l’ID ?**  
-> Active l’extension [VR Dashboard ITYC](https://chrome.google.com/webstore/detail/vr-dashboard-ityc/mhgineemggpjijpmocmnlaonmegkjkdk) et récupère l’ID dans le menu déroulant 👇
+> Active l’extension [VR Dashboard ITYC](https://chromewebstore.google.com/detail/vr-dashboard-ityc/mhgineegmgpjljjpmocmnlaonmegjkdg) et récupère l’ID dans le menu déroulant 👇
+
+Ici, 723 !
 
 ![Choix d’une course dans ITYC](assets/course-id-ityc.png)
 
@@ -54,14 +56,6 @@ Tu peux ensuite renseigner une course manuellement :
 🖥️ Tu peux suivre les actions envoyées en temps réel via les logs :
 
 ![Logs dans l'interface](assets/logs.png)
-
----
-
-## 📊 Résultat côté Virtual Regatta
-
-Voici l'effet direct des actions envoyées automatiquement :
-
-![Résultat dans VR](assets/result-vr.png)
 
 ---
 
