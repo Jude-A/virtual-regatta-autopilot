@@ -1,0 +1,15 @@
+# PyInstaller
+/build/
+/dist/
+/__pycache__/
+/*.spec
+
+# Environnement
+*.pyc
+*.pyo
+*.pyd
+*.log
+*.tmp
+
+# Sécurité
+credentials.json
