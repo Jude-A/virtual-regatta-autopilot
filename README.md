@@ -16,17 +16,17 @@ Un projet Python avec une interface graphique qui pilote automatiquement ton voi
 
 ## 🔐 Connexion
 
-À la première ouverture, l'app te demandera tes **identifiants Virtual Regatta** :
+À la première ouverture, l'app demande les **identifiants Virtual Regatta** :
 
 ![Connexion](assets/login.png)
 
-Pas d’inquiétude : ton mot de passe est **chiffré localement**, et utilisé uniquement pour l’appel API officiel.
+Pas de stress : le mdp est **chiffré localement**, et utilisé uniquement pour l’appel API officiel.
 
 ---
 
 ## 🏁 Ajouter une course
 
-Tu peux ensuite renseigner une course manuellement :  
+Il faut ensuite renseigner les courses ou l'on souhaite l'autopilot manuellement :  
 - Nom (nom apparaissant dans les .csv générés par VrZen, ex: VRZEN_**ATLCONQUEROR**_20250512T130559Z.csv)
 - ID de la course (obligatoire)
 
@@ -36,6 +36,12 @@ Tu peux ensuite renseigner une course manuellement :
 Ici, 723 !
 
 ![Choix d’une course dans ITYC](assets/course-id-ityc.png)
+
+> 📌 **Où trouver le Nom ?**
+> Par le biais de cette même extension et d'un routeur proposé VrZen
+> 
+![Carte de route VRZen](assets/vrzen-map.png)
+![Exemple de CSV importé](assets/import-csv.png)
 
 ---
 
@@ -56,12 +62,6 @@ Ici, 723 !
 🖥️ Tu peux suivre les actions envoyées en temps réel via les logs :
 
 ![Logs dans l'interface](assets/logs.png)
-
----
-
-## 🗺️ Routeur VRZen utilisé
-
-![Carte de route VRZen](assets/vrzen-map.png)
 
 ---
 
