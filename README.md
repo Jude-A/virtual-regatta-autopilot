@@ -68,6 +68,10 @@ Ici, 723 !
 ![Logs dans l'interface](assets/logs.png)
 
 ---
+![image](assets/exemple.png)
+![image](assets/exemple2.png)
+
+---
 
 ## 🧠 Ce que fait le projet (techniquement)
 
