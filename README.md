@@ -29,6 +29,8 @@ Pas de stress : le mdp est **chiffré localement**, et utilisé uniquement pour 
 Il faut ensuite renseigner manuellement les courses ou l'on souhaite l'autopilote :  
 
 ![Ajout de course](assets/add_race.png)
+![Exemple de CSV importé](assets/import-csv.png)
+
 - Nom (apparaissant dans les .csv générés par VrZen, ex: VRZEN_**ATLCONQUEROR**_20250512T130559Z.csv)
 - ID de la course (obligatoire)
 
@@ -43,7 +45,7 @@ Ici, 723 !
 > Par le biais de cette même extension et d'un des routeur proposé : VrZen
 > 
 ![Carte de route VRZen](assets/vrzen-map.png)
-![Exemple de CSV importé](assets/import-csv.png)
+![Nom .csv](assets/image.png)
 
 ---
 
