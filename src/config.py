@@ -1,8 +1,10 @@
 # config.py
 import json
 import os
+import sys
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 CONFIG_PATH = os.path.join(BASE_DIR, "races.json")
 
 with open(CONFIG_PATH, "r", encoding="utf-8") as f:
@@ -12,6 +14,7 @@ CREDENTIALS_PATH = os.path.join(BASE_DIR, "credentials.json")
 
 with open(CREDENTIALS_PATH, "r", encoding="utf-8") as f:
     creds = json.load(f)
+
 MAIL = creds["MAIL"]
 MDP = creds["MDP"]
 

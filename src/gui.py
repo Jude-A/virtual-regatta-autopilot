@@ -11,8 +11,10 @@ from utils.secure import encrypt_message, decrypt_message
 import json
 import os
 import shutil
+import sys
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 CREDENTIALS_PATH = os.path.join(BASE_DIR, "credentials.json")
 CONFIG_PATH = os.path.join(BASE_DIR, "races.json")
 CSV_COPIER_PATH = os.path.join(BASE_DIR, "csv", "csv_copier")
