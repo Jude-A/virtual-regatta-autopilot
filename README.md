@@ -5,7 +5,7 @@ Interface graphique Tkinter, multi-bateau, génération automatique des caps via
 
 ## 📦 Installation
 
-1. Télécharger la dernière version : [Releases](https://github.com/tonpseudo/virtual-regatta-autopilot/releases)
+1. Télécharger la dernière version : [Releases](https://github.com/Jude-A/virtual-regatta-autopilot/releases)
 2. Extraire le `.zip`
 3. Lancer `VirtualRegattaAutopilot.exe`
 
