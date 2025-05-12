@@ -1,7 +1,7 @@
 # ⛵ Virtual Regatta Autopilot
 
-Bienvenue dans ton assistant de navigation autonome pour **Virtual Regatta Offshore** 🧭  
-Un projet Python avec une interface graphique qui pilote automatiquement ton voilier à partir des fichiers générés par [VRZen](https://routage.vrzen.org/) et l'extension **VR Dashboard ITYC**.
+Bienvenue sur la page Github de mon projet de pilote autonome pour **Virtual Regatta Offshore** 🧭  
+Un projet Python avec GUI qui pilote automatiquement tes bateaux à partir des fichiers générés par [VRZen](https://routage.vrzen.org/) et l'extension **VR Dashboard ITYC**.
 
 ---
 
@@ -16,24 +16,36 @@ Un projet Python avec une interface graphique qui pilote automatiquement ton voi
 
 ## 🔐 Connexion
 
-À la première ouverture, l'app te demandera tes **identifiants Virtual Regatta** :
+À la première ouverture, l'app demande les **identifiants Virtual Regatta** :
 
 ![Connexion](assets/login.png)
 
-Pas d’inquiétude : ton mot de passe est **chiffré localement**, et utilisé uniquement pour l’appel API officiel.
+Pas de stress : le mdp est **chiffré localement**, et utilisé uniquement pour l’appel API officiel.
 
 ---
 
 ## 🏁 Ajouter une course
 
-Tu peux ensuite renseigner une course manuellement :  
-- Nom (libre, pour toi)
+Il faut ensuite renseigner manuellement les courses ou l'on souhaite l'autopilote :  
+
+![Ajout de course](assets/add_race.png)
+![Exemple de CSV importé](assets/import-csv.png)
+
+- Nom (apparaissant dans les .csv générés par VrZen, ex: VRZEN_**ATLCONQUEROR**_20250512T130559Z.csv)
 - ID de la course (obligatoire)
 
 > 📌 **Où trouver l’ID ?**  
-> Active l’extension [VR Dashboard ITYC](https://chrome.google.com/webstore/detail/vr-dashboard-ityc/mhgineemggpjijpmocmnlaonmegkjkdk) et récupère l’ID dans le menu déroulant 👇
+> Active l’extension [VR Dashboard ITYC](https://chromewebstore.google.com/detail/vr-dashboard-ityc/mhgineegmgpjljjpmocmnlaonmegjkdg) et récupère l’ID dans le menu déroulant 👇
+
+Ici, 723 !
 
 ![Choix d’une course dans ITYC](assets/course-id-ityc.png)
+
+> 📌 **Où trouver le Nom ?**
+> Par le biais de cette même extension et d'un des routeur proposé : VrZen
+> 
+![Carte de route VRZen](assets/vrzen-map.png)
+![Nom .csv](assets/image.png)
 
 ---
 
@@ -56,18 +68,8 @@ Tu peux ensuite renseigner une course manuellement :
 ![Logs dans l'interface](assets/logs.png)
 
 ---
-
-## 📊 Résultat côté Virtual Regatta
-
-Voici l'effet direct des actions envoyées automatiquement :
-
-![Résultat dans VR](assets/result-vr.png)
-
----
-
-## 🗺️ Routeur VRZen utilisé
-
-![Carte de route VRZen](assets/vrzen-map.png)
+![image](assets/exemple.png)
+![image](assets/exemple2.png)
 
 ---
 
