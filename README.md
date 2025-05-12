@@ -1,7 +1,7 @@
 # ⛵ Virtual Regatta Autopilot
 
-Bienvenue dans ton assistant de navigation autonome pour **Virtual Regatta Offshore** 🧭  
-Un projet Python avec une interface graphique qui pilote automatiquement ton voilier à partir des fichiers générés par [VRZen](https://routage.vrzen.org/) et l'extension **VR Dashboard ITYC**.
+Bienvenue sur la page Github de mon projet de pilote autonome pour **Virtual Regatta Offshore** 🧭  
+Un projet Python avec GUI qui pilote automatiquement tes bateaux à partir des fichiers générés par [VRZen](https://routage.vrzen.org/) et l'extension **VR Dashboard ITYC**.
 
 ---
 
