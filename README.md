@@ -26,8 +26,10 @@ Pas de stress : le mdp est **chiffré localement**, et utilisé uniquement pour 
 
 ## 🏁 Ajouter une course
 
-Il faut ensuite renseigner les courses ou l'on souhaite l'autopilot manuellement :  
-- Nom (nom apparaissant dans les .csv générés par VrZen, ex: VRZEN_**ATLCONQUEROR**_20250512T130559Z.csv)
+Il faut ensuite renseigner manuellement les courses ou l'on souhaite l'autopilote :  
+
+![Ajout de course](assets/add_race.png)
+- Nom (apparaissant dans les .csv générés par VrZen, ex: VRZEN_**ATLCONQUEROR**_20250512T130559Z.csv)
 - ID de la course (obligatoire)
 
 > 📌 **Où trouver l’ID ?**  
@@ -38,7 +40,7 @@ Ici, 723 !
 ![Choix d’une course dans ITYC](assets/course-id-ityc.png)
 
 > 📌 **Où trouver le Nom ?**
-> Par le biais de cette même extension et d'un routeur proposé VrZen
+> Par le biais de cette même extension et d'un des routeur proposé : VrZen
 > 
 ![Carte de route VRZen](assets/vrzen-map.png)
 ![Exemple de CSV importé](assets/import-csv.png)
