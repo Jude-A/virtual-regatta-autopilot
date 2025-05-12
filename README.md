@@ -68,8 +68,8 @@ Ici, 723 !
 ![Logs dans l'interface](assets/logs.png)
 
 ---
-![image](assets/exemple.png)
-![image](assets/exemple2.png)
+![Exemple 1](assets/exemple.png)
+![Exemple 2](assets/exemple2.png)
 
 ---
 
@@ -78,7 +78,7 @@ Ici, 723 !
 - Authentification via API officielle VR
 - Interface Tkinter avec onglets multi-courses
 - Multiprocessing pour gérer plusieurs bateaux en parallèle
-- Lecture et parsing intelligent des CSV
+- Lecture et parsing intelligent des CSV fournis par VrZen
 - Gestion des logs par course
 - Configuration portable (.exe avec PyInstaller)
 
@@ -87,16 +87,16 @@ Ici, 723 !
 ## 🚧 Prochaines évolutions
 
 - Calculateur d’**isochrones interne** (fini les CSV !)
-- Visualisation des routes
-- Planification sur plusieurs jours
-- Intégration météo ?
+- Programmateur avancé liés au calcul d'isochrones pour faire son propre routage (aidé par les maths)
+- Visualisation des routes en lieu et places des fenêtres de logs
+- Maybe version decentralisé de l'app
 
 ---
 
 ## 🛡️ Note
 
 Ce projet est **non affilié** à Virtual Regatta.  
-Il s'agit d'un projet personnel open-source à des fins d'automatisation raisonnée.
+Il s'agit d'un projet personnel open-source à des fins d'automatisation *raisonnée*.
 
 ---
 
