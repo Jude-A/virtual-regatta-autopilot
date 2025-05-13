@@ -30,7 +30,7 @@ def get_course_names(user_id_cookie: str, mode="GFS"):
     }
 
     try:
-        resp = requests.get(url, headers=headers, params=params, cookies=cookies)
+        resp = requests.get(url, headers=headers, params=params, cookies=cookies, verify=False)
         resp.raise_for_status()
         data = resp.json()
         return {
@@ -86,7 +86,7 @@ def launch_vrzen_simulation(course_name, lat_start, lon_start, lat_target, lon_t
     }
 
     try:
-        resp = requests.get(url, headers=headers, params=params, cookies=cookies)
+        resp = requests.get(url, headers=headers, params=params, cookies=cookies, verify=False)
         resp.raise_for_status()
         return resp.json()
     except Exception as e:
