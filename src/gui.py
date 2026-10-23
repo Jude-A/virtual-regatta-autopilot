@@ -1,30 +1,27 @@
 # enhanced_gui.py
-from tkinter import Frame, Entry, Label, Button, messagebox, filedialog, scrolledtext, ttk, Tk, Menu
+from tkinter import Frame, Entry, Label, Button, messagebox, scrolledtext, ttk, Tk, Menu
 from ttkthemes import ThemedTk
 from multiprocessing import Process, Queue, freeze_support
 from api.auth import auth
 from core.autopilot import run_autopilot
-from config import MAIL, MDP
+from config import MAIL, MDP, VRZEN_USER_ID
+from api.race import get_my_races
+from api.vrzen import get_course_names
 from utils.logger import register_log_queue, unregister_log_queue
-from utils.csv_utils import parsee
 from utils.secure import encrypt_message, decrypt_message
 import json
 import os
-import shutil
 import sys
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 CREDENTIALS_PATH = os.path.join(BASE_DIR, "credentials.json")
 CONFIG_PATH = os.path.join(BASE_DIR, "races.json")
-CSV_COPIER_PATH = os.path.join(BASE_DIR, "csv", "csv_copier")
-CSV_RDY_PATH = os.path.join(BASE_DIR, "csv", "csv_rdy")
-os.makedirs(CSV_COPIER_PATH, exist_ok=True)
-os.makedirs(CSV_RDY_PATH, exist_ok=True)
 AUTOPILOT_PROCS = {}
 LOG_QUEUES = {}
 
 AUTH_TOKEN, USER_ID = None, None
+ACTIVE_RACE_IDS = set()
 
 def save_race(name, race_id):
     data = {}
@@ -41,25 +38,31 @@ def load_races():
             return json.load(f)
     return {}
 
-def get_course_state(name, race_id):
-    if name in AUTOPILOT_PROCS:
-        return "✔️"
-    csv_rdy = os.path.join(CSV_RDY_PATH, f"caps_{race_id}.csv")
-    if os.path.exists(csv_rdy):
-        return "⏳"
-    for file in os.listdir(CSV_COPIER_PATH):
-        if name in file and file.endswith(".csv"):
-            return "⏳"
-    return "❌"
+def is_running(name):
+    # Un autopilote arrivé au bout de sa route se termine tout seul : on l'oublie
+    p = AUTOPILOT_PROCS.get(name)
+    if p and not p.is_alive():
+        del AUTOPILOT_PROCS[name]
+        return False
+    return p is not None
 
-def select_csv(name, race_id, refresh_callback=None):
-    file_path = filedialog.askopenfilename(filetypes=[["CSV Files", "*.csv"]])
-    if file_path:
-        dest_file = os.path.join(CSV_COPIER_PATH, f"{name}_{race_id}.csv")
-        shutil.copy(file_path, dest_file)
-        messagebox.showinfo("CSV ajouté", f"Fichier copié pour {name}")
-        if refresh_callback:
-            refresh_callback()
+def sync_active_races():
+    """Ajoute à races.json les courses en cours sur le compte VR, sous leur nom VRZen."""
+    ACTIVE_RACE_IDS.clear()
+    ACTIVE_RACE_IDS.update(r["race_id"] for r in get_my_races(AUTH_TOKEN, USER_ID))
+    known = load_races().values()
+    missing = [rid for rid in ACTIVE_RACE_IDS if rid not in known]
+    if missing:
+        vrzen_names = get_course_names(VRZEN_USER_ID)
+        for rid in missing:
+            if rid in vrzen_names:
+                save_race(vrzen_names[rid], rid)
+
+def get_course_state(name, race_id):
+    if is_running(name):
+        return "✔️"
+    # ⏳ : course en cours sur le compte, prête à être routée ; 🏁 : terminée ou pas inscrit
+    return "⏳" if race_id in ACTIVE_RACE_IDS else "🏁"
 
 def create_log_tab(notebook, name, queue):
     for tab_id in notebook.tabs():
@@ -88,18 +91,15 @@ def create_log_tab(notebook, name, queue):
     update_logs()
 
 def start_autopilot(name, race_id, notebook, refresh_callback=None):
-    if name in AUTOPILOT_PROCS:
+    if is_running(name):
         messagebox.showinfo("Déjà en cours", f"L'autopilote pour {name} est déjà lancé.")
         return
 
-    rdy_file = os.path.join(CSV_RDY_PATH, f"caps_{race_id}.csv")
-    if not os.path.exists(rdy_file):
-        found = any(name in file and file.endswith(".csv") for file in os.listdir(CSV_COPIER_PATH))
-        if found:
-            parsee(race_id)
-        else:
-            messagebox.showwarning("CSV manquant", f"Aucun CSV trouvé pour {name}. Importez-en un avant de lancer.")
-            return
+    if race_id not in ACTIVE_RACE_IDS:
+        sync_active_races()  # course rejointe depuis l'ouverture de l'app ?
+    if race_id not in ACTIVE_RACE_IDS:
+        messagebox.showwarning("Course inactive", f"{name} n'est pas en cours sur ton compte Virtual Regatta.")
+        return
 
     log_q = Queue()
     register_log_queue(race_id, log_q)
@@ -265,14 +265,14 @@ def main_gui():
         for i, (name, race_id) in enumerate(races.items()):
             state = get_course_state(name, race_id)
             Label(frame_courses, text=f"{state} {name} (ID: {race_id})").grid(row=i, column=0, sticky="w", padx=5, pady=3)
-            Button(frame_courses, text="Importer CSV", command=lambda n=name, r=race_id: select_csv(n, r, refresh_courses)).grid(row=i, column=1, padx=2)
-            Button(frame_courses, text="Lancer", command=lambda n=name, r=race_id: start_autopilot(n, r, notebook, refresh_courses)).grid(row=i, column=2, padx=2)
-            Button(frame_courses, text="Stop", command=lambda n=name: stop_autopilot(n, refresh_courses)).grid(row=i, column=3, padx=2)
+            Button(frame_courses, text="Lancer", command=lambda n=name, r=race_id: start_autopilot(n, r, notebook, refresh_courses)).grid(row=i, column=1, padx=2)
+            Button(frame_courses, text="Stop", command=lambda n=name: stop_autopilot(n, refresh_courses)).grid(row=i, column=2, padx=2)
 
+    sync_active_races()
     refresh_courses()
 
     for name, race_id in load_races().items():
-        if get_course_state(name, race_id) in ["✔️", "⏳"]:
+        if get_course_state(name, race_id) == "⏳":
             start_autopilot(name, race_id, notebook)
             refresh_courses()
 

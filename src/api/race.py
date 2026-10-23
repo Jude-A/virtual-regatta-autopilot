@@ -1,7 +1,7 @@
 # api/race.py
 
 import requests
-from config import headers_auth
+from config import headers_auth, url_heading, headers_heading
 import json
 import os
 
@@ -15,7 +15,7 @@ def update_races_json(race_list):
 
     for race in race_list:
         race_id = race["race_id"]
-        if str(race_id) not in data.values():
+        if race_id not in data.values():
             name = f"AUTO_{race_id}"
             data[name] = race_id
 
@@ -44,3 +44,37 @@ def get_my_races(authToken, playerId):
     except Exception as e:
         print("❌ Erreur lors de la récupération des courses :", e)
         return []
+
+def log_event(event_key, authToken, playerId, **params):
+    """Événement de lecture sur l'API du jeu -> scriptData de la réponse."""
+    payload = {
+        "@class": "LogEventRequest",
+        "eventKey": event_key,
+        "requestId": "638827022443340000_1",
+        "authToken": authToken,
+        "playerId": playerId,
+        **params
+    }
+    resp = requests.post(url_heading, headers=headers_heading, json=payload)
+    resp.raise_for_status()
+    return resp.json().get("scriptData", {})
+
+def get_boat_state(authToken, playerId, race_id, leg_num):
+    """État du bateau (pos, heading, sail, state...) ou None."""
+    try:
+        return log_event("Game_GetBoatState", authToken, playerId, raceId=race_id, legNum=leg_num).get("boatState")
+    except Exception as e:
+        print("❌ Erreur lors de la récupération du bateau :", e)
+        return None
+
+def get_leg_end(authToken, playerId, race_id, leg_num):
+    """(lat, lon) de l'arrivée de l'étape, ou None."""
+    try:
+        legs = log_event("Leg_GetList", authToken, playerId).get("res", [])
+    except Exception as e:
+        print("❌ Erreur lors de la récupération des étapes :", e)
+        return None
+    for leg in legs:
+        if leg["raceId"] == int(race_id) and leg["legNum"] == leg_num:
+            return leg["end"]["lat"], leg["end"]["lon"]
+    return None
