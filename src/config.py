@@ -12,13 +12,21 @@ with open(CONFIG_PATH, "r", encoding="utf-8") as f:
 
 CREDENTIALS_PATH = os.path.join(BASE_DIR, "credentials.json")
 
-with open(CREDENTIALS_PATH, "r", encoding="utf-8") as f:
-    creds = json.load(f)
+# Absent au premier lancement : la GUI demande alors les identifiants et crée le fichier.
+# Le mdp est stocké chiffré, on le déchiffre ici pour que auth(MAIL, MDP) fonctionne.
+MAIL, MDP = "", ""
+if os.path.exists(CREDENTIALS_PATH):
+    from utils.secure import decrypt_message
+    try:
+        with open(CREDENTIALS_PATH, "r", encoding="utf-8") as f:
+            creds = json.load(f)
+        MAIL = creds.get("MAIL", "")
+        MDP = decrypt_message(creds.get("MDP", ""))
+    except Exception:
+        pass
 
-MAIL = creds["MAIL"]
-MDP = creds["MDP"]
-
-LEG_NUM = 1
+# Identifiant VRZen (cookie "UserID" de routage.vrzen.org) utilisé pour calculer les routes
+VRZEN_USER_ID = "0ecf9f9a-cd68-4116-a641-20958223aec1"
 
 # URLs & headers
 url_auth = "https://prod.vro.sparks.virtualregatta.com/rs/device/Xcl3WbCUmfcu5pWCktUoC0slGT4xkbEt/AuthenticationRequest"

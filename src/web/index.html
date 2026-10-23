@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Suivi de course</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛵</text></svg>">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span aria-hidden="true">⛵</span> Suivi de course</div>
+    <nav id="race-tabs" class="race-tabs" aria-label="Courses"></nav>
+    <div class="topbar-right">
+      <span id="sync" class="sync"><i class="dot"></i><span class="sync-text">Connexion…</span></span>
+      <button id="notify-btn" class="btn btn-ghost" type="button" aria-pressed="false">🔔 Alertes</button>
+    </div>
+  </header>
+
+  <main id="dashboard" class="layout" hidden>
+    <div id="banner" class="banner" role="status" hidden></div>
+
+    <section class="main-col">
+      <div class="card map-card">
+        <div id="map" aria-label="Carte de la course"></div>
+        <div id="legend" class="map-legend"></div>
+        <button id="recenter" class="btn btn-map" type="button">Recentrer</button>
+      </div>
+
+      <div class="charts">
+        <div class="card chart-card">
+          <div class="card-head"><h2>Vitesse prévue <span class="unit">nds</span></h2><div class="chart-legend" id="speed-legend"></div></div>
+          <div class="chart" id="chart-speed"></div>
+        </div>
+        <div class="card chart-card">
+          <div class="card-head"><h2>Vent prévu <span class="unit">nds</span></h2></div>
+          <div class="chart" id="chart-wind"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <h2>Plan de programmation · pilote TWA</h2>
+          <div id="horizons" class="chips" role="group" aria-label="Afficher les actions des prochaines heures"></div>
+        </div>
+        <p class="hint">En pilote TWA, le bateau suit tout seul les bascules du vent : programme seulement ces actions (TWA + voile) dans le programmateur du jeu, puis coche-les.</p>
+        <div class="table-wrap">
+          <table class="maneuvers">
+            <thead><tr><th>Heure</th><th>Dans</th><th>Action</th><th class="num">TWA</th><th>Voile</th><th class="num">Cap</th><th class="num">Tenue</th><th class="center">✓</th></tr></thead>
+            <tbody id="plan"></tbody>
+          </table>
+        </div>
+        <p id="plan-more" class="hint plan-more"></p>
+      </div>
+    </section>
+
+    <aside class="side-col">
+      <div id="next" class="card next-card"></div>
+      <div id="tiles" class="tiles"></div>
+
+      <div class="card">
+        <div class="card-head">
+          <h2>Route VRZen</h2>
+          <button id="reroute" class="btn" type="button">Recalculer</button>
+        </div>
+        <p id="route-info" class="route-info"></p>
+      </div>
+    </aside>
+  </main>
+
+  <section id="empty" class="empty" hidden>
+    <div class="card empty-card">
+      <h2>Aucune course en cours</h2>
+      <p>Rejoins une course dans Virtual Regatta : elle apparaîtra ici automatiquement, avec sa route.</p>
+    </div>
+  </section>
+
+  <div id="login" class="overlay" hidden>
+    <form id="login-form" class="card login-card">
+      <h2>Connexion Virtual Regatta</h2>
+      <p class="hint">Le mot de passe est chiffré et reste sur ton PC.</p>
+      <label>Mail<input name="mail" type="email" autocomplete="username" required></label>
+      <label>Mot de passe<input name="mdp" type="password" autocomplete="current-password" required></label>
+      <p id="login-error" class="form-error" hidden></p>
+      <button class="btn btn-primary btn-block" type="submit">Se connecter</button>
+    </form>
+  </div>
+
+  <div id="tooltip" class="tooltip" hidden></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

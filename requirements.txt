@@ -1,0 +1,9 @@
+# Tableau de bord de suivi (src/app.py)
+flask>=3.0
+requests>=2.31
+cryptography>=42
+
+# Ancienne interface Tkinter / autopilote (src/gui.py)
+ttkthemes
+colorama
+pywin32; sys_platform == "win32"

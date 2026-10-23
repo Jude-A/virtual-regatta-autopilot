@@ -16,3 +16,5 @@ credentials.json
 
 #Perso
 create_shortcut.py
+# Données de suivi (traces, routes)
+src/data/
